@@ -5,15 +5,15 @@ import os;
 import matplotlib.pyplot as plt;
 import numpy as np;
 
-IMAGE_DIR = "../images"
-OUTPUT_DIR = "../images_output"
+R_MIN = (93,84,96)
+R_MAX = (255,255,255);
 
-def __main__():
+def process(IMAGE_DIR,OUTPUT_DIR):
 
-    for filename in os.listdir(IMAGE_DIR):
+    for filename in sorted(os.listdir(IMAGE_DIR)):
         if(filename.endswith(".jpg")):
             im = cv2.imread(os.path.join(IMAGE_DIR,filename));
-            thresh = cv2.inRange(im,(93,84,96),(255,255,255));
+            thresh = cv2.inRange(im,R_MIN,R_MAX);
             thresh_rgb = cv2.cvtColor(thresh,cv2.COLOR_GRAY2RGB);
             print(filename);
             contours, hier = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -30,6 +30,7 @@ def __main__():
            
             center,size,theta = bst_rect;
             center,size = tuple(map(int,center)),tuple(map(int,size));
+            print(theta);
             if(theta + 45 < 0):
                 theta = theta + 90;
                 size = (size[1],size[0]);
@@ -44,7 +45,17 @@ def __main__():
             big_dist = (im.shape[0] ** 2 + im.shape[1] ** 2) ** 0.5;
             extract = cv2.warpAffine(im, M, (int(big_dist),int(big_dist)));
             extract = cv2.getRectSubPix(extract, size, center);
-            
+           
+
+            while True:
+                cv2.imshow(filename,extract);
+                k = cv2.waitKey(0);
+                if(k == ord('s')):
+                    cv2.destroyAllWindows();
+                    break;
+                elif(k == ord('r')):
+                    cv2.destroyAllWindows();
+                    extract = cv2.rotate(extract,cv2.ROTATE_90_CLOCKWISE);
+
             cv2.imwrite(os.path.join(OUTPUT_DIR,filename),extract);
 
-__main__();
