@@ -1,0 +1,5 @@
+#compiled
+*.pyc
+
+#image output
+images_out/
