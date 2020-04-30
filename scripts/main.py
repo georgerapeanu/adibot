@@ -117,7 +117,7 @@ def __main__():
                         print(tmp2.shape,extract.shape);
                         problems[len(problems) - 1] = (cnt,cv2.vconcat([tmp2,extract]));
                     else:
-                        problems.append((cnt,im));
+                        problems.append((cnt,extract));
                     cnt = cnt + 1;
                     points = [];
 
