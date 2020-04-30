@@ -31,7 +31,6 @@ def mouse_click(event,x,y,flags,param):
     mouse_y = y;
 
 #TODO 
-#merge problems with coresponding solutions and output them
 #maybe automate uploading to google drive
 #automation for gathering images is impossible, because this program requires human labor to be able to clasify and preprocess images corectly.
 def crop_to_points(im,points):
