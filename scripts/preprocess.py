@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+# push test
 import cv2;
 import os;
 import matplotlib.pyplot as plt;
@@ -17,7 +17,7 @@ def process(IMAGE_DIR,OUTPUT_DIR):
             thresh_rgb = cv2.cvtColor(thresh,cv2.COLOR_GRAY2RGB);
             print(filename);
             contours, hier = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-            
+
             bst_rect = [];bst_area = 0;
 
             for contour in contours:
@@ -27,7 +27,7 @@ def process(IMAGE_DIR,OUTPUT_DIR):
                     bst_rect = rect;
                     bst_area = size[0] * size[1];
 
-           
+
             center,size,theta = bst_rect;
             center,size = tuple(map(int,center)),tuple(map(int,size));
             print(theta);
@@ -45,7 +45,7 @@ def process(IMAGE_DIR,OUTPUT_DIR):
             big_dist = (im.shape[0] ** 2 + im.shape[1] ** 2) ** 0.5;
             extract = cv2.warpAffine(im, M, (int(big_dist),int(big_dist)));
             extract = cv2.getRectSubPix(extract, size, center);
-           
+
 
             while True:
                 cv2.imshow(filename,extract);
@@ -58,4 +58,3 @@ def process(IMAGE_DIR,OUTPUT_DIR):
                     extract = cv2.rotate(extract,cv2.ROTATE_90_CLOCKWISE);
 
             cv2.imwrite(os.path.join(OUTPUT_DIR,filename),extract);
-
