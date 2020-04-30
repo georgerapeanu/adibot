@@ -11,7 +11,7 @@ R_MAX = (255,255,255);
 def process(IMAGE_DIR,OUTPUT_DIR):
 
     for filename in sorted(os.listdir(IMAGE_DIR)):
-        if(filename.endswith(".jpg")):
+        if(True or filename.endswith(".jpg")):
             im = cv2.imread(os.path.join(IMAGE_DIR,filename));
             thresh = cv2.inRange(im,R_MIN,R_MAX);
             thresh_rgb = cv2.cvtColor(thresh,cv2.COLOR_GRAY2RGB);
